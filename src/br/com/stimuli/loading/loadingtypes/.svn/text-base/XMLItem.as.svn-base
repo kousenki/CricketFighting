@@ -2,17 +2,17 @@ package br.com.stimuli.loading.loadingtypes {
 	
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
 	import br.com.stimuli.loading.BulkLoader;
-	import com.libs.json.JSON;
+	
 	
 	import flash.display.*;
     import flash.net.*;
     import flash.events.*;
     import flash.utils.*;
     /** @private */
-	public class JSONItem extends LoadingItem {
+	public class XMLItem extends LoadingItem {
         public var loader : URLLoader;
         
-		public function JSONItem(url : URLRequest, type : String, uid : String){
+		public function XMLItem(url : URLRequest, type : String, uid : String){
 			super(url, type, uid);
 		}
 		
@@ -48,7 +48,7 @@ package br.com.stimuli.loading.loadingtypes {
         
         override public function onCompleteHandler(evt : Event) : void {
             try{
-                _content = JSON.decode(loader.data);
+                _content = new XML(loader.data);
             }catch(e  : Error){
                 _content = null;
                 status = STATUS_ERROR;  
