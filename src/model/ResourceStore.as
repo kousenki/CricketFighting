@@ -2,6 +2,8 @@ package model
 {
 	import br.com.stimuli.loading.BulkLoader;
 	
+	import flash.display.MovieClip;
+	
 	public class ResourceStore extends BulkLoader
 	{
 		private static var instance:ResourceStore = null;
@@ -27,6 +29,7 @@ package model
 		public function addResources():void
 		{
 			// add resources to be loaded here
+			this.add("assets/swf/UserBasicc.swf");
 		}
 		
 	}

@@ -13,7 +13,7 @@ package view
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
+	import model.ResourceStore;
 	import vo.UserBasicInfoProfile;
 	
 //	import fy.AppFacade;
@@ -70,19 +70,20 @@ package view
 //			aa.stop();
 //			aa.cacheAsBitmap=true; 
 			
-			userPanel = new (BulkLoader.getLoader("PreLoad").getSWFClass("swf/UserBasicc.swf","UserBasicc"));//new//new UserBasicc();
+			userPanel = ResourceStore.getInstance().getMovieClip("assets/swf/UserBasicc.swf");
+			//userPanel = new (BulkLoader.getLoader("PreLoad").getSWFClass("asset/swf/UserBasicc.swf","UserBasicc"));//new//new UserBasicc();
 		//	userPanel.hpText.filters=userPanel.mpText.filters=[new GlowFilter(0x1c1c1c, 1, 2, 2, 5)];
-			userPanel.cacheAsBitmap=true;
-			userPanel.lvl.text="";
-			userPanel.roleinfo.text="";
-			userPanel.hpText.text=userPanel.mpText.text="";
-//			userPanel.expbar.gotoAndStop(0); 
-			userPanel.hpbar.gotoAndStop(0);    
-			userPanel.mpbar.gotoAndStop(0);     
-			//userPanel.head.addEventListener(MouseEvent.CLICK,onClickHead);
-			userPanel.head.buttonMode=true;   
-			//userPanel.pk.addEventListener(MouseEvent.CLICK,onPk);  
-			userPanel.select.text = "和平";
+//			userPanel.cacheAsBitmap=true;
+//			userPanel.lvl.text="";
+//			userPanel.roleinfo.text="";
+//			userPanel.hpText.text=userPanel.mpText.text="";
+////			userPanel.expbar.gotoAndStop(0); 
+//			userPanel.hpbar.gotoAndStop(0);    
+//			userPanel.mpbar.gotoAndStop(0);     
+//			//userPanel.head.addEventListener(MouseEvent.CLICK,onClickHead);
+//			userPanel.head.buttonMode=true;   
+//			//userPanel.pk.addEventListener(MouseEvent.CLICK,onPk);  
+//			userPanel.select.text = "和平";
 			//userPanel.moshi.addEventListener(MouseEvent.CLICK,onClick);
 			this.setLayout(new EmptyLayout()); 
 			this.setEnabled(false); 

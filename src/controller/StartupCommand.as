@@ -1,5 +1,7 @@
 package controller
 {	
+	import br.com.stimuli.loading.BulkProgressEvent;
+	
 	import mediator.*;
 	
 	import model.*;
@@ -9,6 +11,12 @@ package controller
 
 	public class StartupCommand extends SimpleCommand
 	{
+		private var stage:GameStage;
+		
+		public static const LOADING_START:String = "LoadingStart";
+		public static const LOADING_PROGRESS:String = "LoadingProgress";
+		public static const LOADING_COMPLETE:String = "LoadingComplete";
+		
 		public function StartupCommand()
 		{
 			super();
@@ -16,23 +24,29 @@ package controller
 		
 		public override function execute(notification:INotification):void
 		{
-			// register proxy
-			facade.registerProxy(new UserProfileProxy());
-			facade.registerProxy(new CricketProfileProxy());
-			facade.registerProxy(new CricketInfoProfileProxy());
-			
-			// register mediator
-			var stage:GameStage = notification.getBody() as GameStage;
+			stage = notification.getBody() as GameStage;
 			facade.registerMediator(new StageMediator(stage));
-			facade.registerMediator(new GrassFieldMediator(stage.grassField));
-			facade.registerMediator(new ToolBoxMediator(stage.toolBox));
-			facade.registerMediator(new FriendPanelMediator(stage.friendPanel));
-			//facade.registerMediator(new HeadPanelMediator(stage.headPanel));
-			facade.registerMediator(new UserBasicInfoMediator(stage.userHeader));
-			facade.registerMediator(new UserPanelMediator(stage.userPanel));	
-			facade.registerMediator(new CricketPanelMediator(stage.cricketPanel));
-			facade.registerMediator(new CricketInfoPanelMediator(stage.cricketInformationPanel));
 			
+			loadResources();
+		}
+		
+		private function loadResources():void
+		{
+			ResourceStore.getInstance().addEventListener(BulkProgressEvent.PROGRESS, onLoadingProgress);
+			ResourceStore.getInstance().addEventListener(BulkProgressEvent.COMPLETE, onLoadingComplete);
+			ResourceStore.getInstance().AsyncLoad();
+			sendNotification(LOADING_START);
+		}
+		
+		private function onLoadingProgress(evt:BulkProgressEvent):void
+		{
+			sendNotification(LOADING_PROGRESS, evt.percentLoaded);
+		}
+		
+		private function onLoadingComplete(evt:BulkProgressEvent):void
+		{
+			sendNotification(LOADING_COMPLETE);
+			sendNotification(ApplicationFacade.ENTER_GAME, stage);
 		}
 	}
 }

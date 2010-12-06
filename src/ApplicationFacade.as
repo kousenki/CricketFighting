@@ -1,7 +1,7 @@
 package
 {
 	import controller.StartupCommand;
-	
+	import controller.EnterGameCommand;
 	import org.puremvc.as3.interfaces.IFacade;
 	import org.puremvc.as3.patterns.facade.Facade;
 
@@ -9,6 +9,7 @@ package
 	{
 		public static const NAME:String = "ApplicationFacade";
 		public static const STARTUP:String = NAME + "startup";
+		public static const ENTER_GAME:String = NAME + "enterGame";
 		
 		public function ApplicationFacade()
 		{
@@ -31,6 +32,7 @@ package
 		{
 			super.initializeController();
 			registerCommand(STARTUP, StartupCommand);
+			registerCommand(ENTER_GAME, EnterGameCommand);
 		}
 	}
 }

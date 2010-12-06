@@ -1,18 +1,17 @@
 package
 {
 	//fuck panda 
+	import br.com.stimuli.loading.BulkLoader;
+	import br.com.stimuli.loading.BulkProgressEvent;
+	
 	import flash.display.Sprite;
 	
-	import org.aswing.AsWingManager;
-	import org.aswing.JButton;
-	import org.aswing.UIManager;
-	import org.aswing.skinbuilder.orange.OrangeLookAndFeel;
-	
+	import org.aswing.*;
+	import org.aswing.skinbuilder.orange.*;
 	import view.CricketInformationPanel;
 	import view.CricketPanel;
 	import view.FriendPanel;
 	import view.GrassField;
-	import view.HeadPanel;
 	import view.LoadingSplash;
 	import view.ToolBox;
 	import view.UserBasicInfor;
@@ -44,7 +43,7 @@ package
 		private var battleRoomBtn:JButton;
 			
 		public function GameStage()
-		{
+		{						
 			AsWingManager.initAsStandard(this);
 			UIManager.setLookAndFeel(new OrangeLookAndFeel());
 			ApplicationFacade.getInstance().startUp(this);
@@ -61,7 +60,7 @@ package
 			this.removeChild(loadingSplash);
 		}
 		
-		public function initGameView():void
+		public function enterGameView():void
 		{
 			grassField = new GrassField();
 			toolBox = new ToolBox();			
@@ -71,7 +70,7 @@ package
 			userHeader = new UserBasicInfor();
 			cricketPanel = new CricketPanel();
 			cricketInformationPanel = new CricketInformationPanel();
-			
+						
 			addChild(grassField);
 			addChild(toolBox);
 			addChild(friendPanel);
